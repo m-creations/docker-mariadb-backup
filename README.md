@@ -13,7 +13,7 @@ docker run -d v $HOME/data:/data e DB_HOST=my-mariadb.example.com \
             -e ZIP_CMD="bzip2" mcreations/mariadb-backup
 ```
 
-the `ZIP_CMD` parameter can two values haben either bzip2 or gzip.
+the `ZIP_CMD` parameter can have the following three values bzip2,  gzip or zip.
 
 # Github Repo
 

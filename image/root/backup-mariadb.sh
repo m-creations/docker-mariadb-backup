@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 function envValue() {
 		local NAME=$1
 		local ORG_VAL=$2
@@ -41,14 +39,25 @@ BACKUP_DATESTAMP=$(date +'%Y-%m-%d')
 BACKUP_FOLDER="${DATADIR}/${BACKUP_DATESTAMP}"
 mkdir -p ${BACKUP_FOLDER}
 
-BACKUP_TIMESTAMP=$(date +'%Y-%m-%d-%H%M%S-%Z')
+BACKUP_TIMESTAMP=$(date +'%Y-%m-%d-%H_%M_%S-%Z')
 BACKUP_SQL_FILE_PATH="${BACKUP_FOLDER}/${DB_NAME}-${BACKUP_TIMESTAMP}.sql"
 
-mysqldump -h $DB_HOST -u${DB_USER} -p${DB_PASSWORD}  ${DB_NAME} > ${BACKUP_SQL_FILE_PATH}
+echo "Backup path: ${BACKUP_SQL_FILE_PATH}"
 
+echo "Backup started ... "
+
+mysqldump -h $DB_HOST -u${DB_USER} -p${DB_PASSWORD}  ${DB_NAME} > ${BACKUP_SQL_FILE_PATH}
+RESULT=$?
+
+echo "Backup finished ... "
 if [ ! -z "$ZIP_CMD" ]; then
-	$ZIP_CMD  $BACKUP_SQL_FILE_PATH
+		echo "Compressing backup started ... "
+		$ZIP_CMD  $BACKUP_SQL_FILE_PATH
+		echo "Backup compressed ... "
+		RESULT=$?
 fi
+
+exit $RESULT
 
 # Local Variables:
 # mode: shell-script

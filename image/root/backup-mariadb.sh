@@ -31,8 +31,21 @@ validate_param "DB_USER"
 validate_param "DB_HOST"
 validate_param "DB_NAME"
 
+
 if [ ! -z "$EXIT_FLAG" ]; then
 	exit 1
+fi
+
+echo "DB_HOST='${DB_HOST}'"
+echo "DB_USER='${DB_USER}'"
+echo "DB_NAME='${DB_NAME}'"
+
+
+FOUND_DATABASE=$(mysql -h $DB_HOST -u${DB_USER} -p${DB_PASSWORD} -Bse "show databases;" | grep  ${DB_NAME})
+
+if [ -z "$FOUND_DATABASE" ]; then
+	echo -e >&2 "Error: Database ${DB_NAME} not found!"
+	exit 2
 fi
 
 BACKUP_DATESTAMP=$(date +'%Y-%m-%d')
@@ -45,6 +58,7 @@ BACKUP_SQL_FILE_PATH="${BACKUP_FOLDER}/${DB_NAME}-${BACKUP_TIMESTAMP}.sql"
 echo "Backup path: ${BACKUP_SQL_FILE_PATH}"
 
 echo "Backup started ... "
+date
 
 mysqldump -h $DB_HOST -u${DB_USER} -p${DB_PASSWORD}  ${DB_NAME} > ${BACKUP_SQL_FILE_PATH}
 RESULT=$?
@@ -57,7 +71,7 @@ if [ ! -z "$ZIP_CMD" ]; then
 		RESULT=$?
 fi
 
-ls -al "${BACKUP_FOLDER}/${DB_NAME}-${BACKUP_DATESTAMP}*"
+ls -al "${BACKUP_FOLDER}/${DB_NAME}-${BACKUP_TIMESTAMP}"*
 
 exit $RESULT
 

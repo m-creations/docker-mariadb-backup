@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 function envValue() {
@@ -42,7 +44,7 @@ mkdir -p ${BACKUP_FOLDER}
 BACKUP_TIMESTAMP=$(date +'%Y-%m-%d-%H%M%S-%Z')
 BACKUP_SQL_FILE_PATH="${BACKUP_FOLDER}/${DB_NAME}-${BACKUP_TIMESTAMP}.sql"
 
-mysqldump -h $DB_HOST -u${DB_USER} -p-u${DB_PASSWORD}  ${DB_NAME} > ${BACKUP_SQL_FILE_PATH}
+mysqldump -h $DB_HOST -u${DB_USER} -p${DB_PASSWORD}  ${DB_NAME} > ${BACKUP_SQL_FILE_PATH}
 
 if [ ! -z "$ZIP_CMD" ]; then
 	$ZIP_CMD  $BACKUP_SQL_FILE_PATH

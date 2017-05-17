@@ -7,8 +7,10 @@ A docker container for backing up a [MariaDB](http://mariadb.org) database with 
 The container can be run as follows:
 
 ```
-docker run -d v $HOME/data:/data e DB_HOST=my-mariadb.example.com \
-            -e DB_USER=root -r DB_PASSWORD=root \
+docker run -d -v $HOME/data:/data \
+            -e DB_HOST=my-mariadb.example.com \
+            -e DB_USER=root \
+            -e DB_PASSWORD=root \
             -e DB_NAME="myDbName" \
             -e ZIP_CMD="bzip2" mcreations/mariadb-backup
 ```

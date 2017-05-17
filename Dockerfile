@@ -14,6 +14,8 @@ ENV DB_NAME=""
 
 #bzip2 or gzip or zip
 ENV ZIP_CMD="bzip2"
+ENV DATE_FORMAT="%Y-%m-%d"
+ENV TIMESTAMP_FORMAT="%Y-%m-%d-%H_%M_%S-%Z"
 
 ENV DATADIR=/data
 

@@ -48,11 +48,11 @@ if [ -z "$FOUND_DATABASE" ]; then
 	exit 2
 fi
 
-BACKUP_DATESTAMP=$(date +'%Y-%m-%d')
+BACKUP_DATESTAMP=$(date +"${DATE_FORMAT}")
 BACKUP_FOLDER="${DATADIR}/${BACKUP_DATESTAMP}"
 mkdir -p ${BACKUP_FOLDER}
 
-BACKUP_TIMESTAMP=$(date +'%Y-%m-%d-%H_%M_%S-%Z')
+BACKUP_TIMESTAMP=$(date +"${TIMESTAMP_FORMAT}")
 BACKUP_SQL_FILE_PATH="${BACKUP_FOLDER}/${DB_NAME}-${BACKUP_TIMESTAMP}.sql"
 
 echo "Backup path: ${BACKUP_SQL_FILE_PATH}"
@@ -77,6 +77,6 @@ exit $RESULT
 
 # Local Variables:
 # mode: shell-script
-# indent-tabs-mode: t
+\# indent-tabs-mode: t
 # tab-width: 2
 # End:

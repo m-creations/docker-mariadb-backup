@@ -57,6 +57,8 @@ if [ ! -z "$ZIP_CMD" ]; then
 		RESULT=$?
 fi
 
+ls -al "${BACKUP_FOLDER}/${DB_NAME}-${BACKUP_DATESTAMP}*"
+
 exit $RESULT
 
 # Local Variables:

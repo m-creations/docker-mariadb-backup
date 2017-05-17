@@ -23,5 +23,5 @@ RUN opkg update && \
     opkg install mariadb-client mariadb-client-extra bzip2 && \
     rm /tmp/opkg-lists/*
 
-CMD ["backup-mariadb.sh"]
+CMD ["/backup-mariadb.sh"]
 
